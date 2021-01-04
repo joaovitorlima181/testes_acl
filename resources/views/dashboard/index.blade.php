@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-6">
-        <div class="p-3 border bg-warning bg-gradient"><a href="" class="text-decoration-none text-dark">Usuários</a> </div>
+        <div class="p-3 border bg-warning bg-gradient"><a href="{{route('user.index')}}" class="text-decoration-none text-dark">Usuários</a> </div>
       </div>
 
     </div>
