@@ -9,6 +9,7 @@
 <div class="container">
     <h2 class="center">Lista de Papéis</h2>
 
+    @can('role-view')
     <div class="row">
         <table>
             <thead>
@@ -28,16 +29,20 @@
 
                     <td>
 
-                        <form action="{{route('roles.destroy',$role->id)}}" method="post">
+                        @can('role-edit')
+                            <form action="{{route('roles.destroy',$role->id)}}" method="post">
 
-                            <a title="Editar" class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
-                            <a title="Permissões" class="btn btn-warning" href="{{route('roles.permission',$role->id)}}">Permissões</a>
+                                <a title="Editar" class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+                                <a title="Permissões" class="btn btn-warning" href="{{route('roles.permission',$role->id)}}">Permissões</a>
 
-                                @method('DELETE')
-                                @csrf
-                                <button title="Deletar" class="btn btn-danger">Deletar</i></button>
+                                    @can('roles-delete')
+                                        @method('DELETE')
+                                        @csrf
+                                        <button title="Deletar" class="btn btn-danger">Deletar</i></button>
+                                    @endcan
 
-                        </form>
+                            </form>
+                        @endcan
 
                     </td>
                 </tr>
@@ -46,8 +51,13 @@
         </table>
 
     </div>
+    @endcan
+
+   @can('roles-create')
     <div class="row">
         <a class="btn btn-primary mt-3" href="{{route('roles.create')}}">Adicionar</a>
     </div>
+   @endcan  
+
 </div>
 @endsection
