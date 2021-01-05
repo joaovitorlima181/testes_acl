@@ -20,4 +20,35 @@ class Role extends Model
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    public function permissionExistOnRole($permission)
+    {
+        if(is_string($permission)){
+            $permission = Permission::where('name', '=', $permission)->firstOrFail();
+        }
+
+        return (boolean) $this->permissions()->find($permission->id);
+    }
+
+    public function addPermissionOnRole($permission)
+    {
+        if(is_string($permission)){
+            $permission = Permission::where('name', '=', $permission)->firstOrFail();
+        }
+
+        if($this->permissionExist($permission)){
+            return;
+        }
+
+        return $this->permissions()->attach($permission);
+    }
+
+    public function removePermissionOnRole($permission)
+    {
+        if(is_string($permission)){
+            $permission = Permission::where('name', '=', $permission)->firstOrFail();
+        }
+
+        return $this->permissions()->detach();
+    }
 }
