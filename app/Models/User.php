@@ -84,7 +84,7 @@ class User extends Authenticatable
             $role = Role::where('name', '=', $role)->firstOrFail();
         }
 
-        return $this->roles()->detach();
+        return $this->roles()->detach($role);
     }
 
     public function userHaveRole($roles)

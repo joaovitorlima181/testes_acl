@@ -35,7 +35,7 @@
                                 <a title="Editar" class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
                                 <a title="Permissões" class="btn btn-warning" href="{{route('roles.permission',$role->id)}}">Permissões</a>
 
-                                    @can('roles-delete')
+                                    @can('role-delete')
                                         @method('DELETE')
                                         @csrf
                                         <button title="Deletar" class="btn btn-danger">Deletar</i></button>
@@ -53,7 +53,7 @@
     </div>
     @endcan
 
-   @can('roles-create')
+   @can('role-create')
     <div class="row">
         <a class="btn btn-primary mt-3" href="{{route('roles.create')}}">Adicionar</a>
     </div>

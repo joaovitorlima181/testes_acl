@@ -49,6 +49,6 @@ class Role extends Model
             $permission = Permission::where('name', '=', $permission)->firstOrFail();
         }
 
-        return $this->permissions()->detach();
+        return $this->permissions()->detach($permission);
     }
 }

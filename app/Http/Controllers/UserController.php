@@ -65,7 +65,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if (Gate::denies('usuarios-edit')){
+        if (Gate::denies('usuario-edit')){
             abort(403, 'Não Autorizado');
         }
 
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Gate::denies('usuarios-edit')){
+        if (Gate::denies('usuario-edit')){
             abort(403, 'Não Autorizado');
         }
 
@@ -102,7 +102,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if (Gate::denies('usuarios-delete')){
+        if (Gate::denies('usuario-delete')){
             abort(403, 'Não Autorizado');
         }
 
@@ -113,7 +113,7 @@ class UserController extends Controller
     public function role($id)
     {
 
-        if (Gate::denies('usuarios-edit')){
+        if (Gate::denies('usuario-edit')){
             abort(403, 'Não Autorizado');
         }
 
@@ -125,7 +125,7 @@ class UserController extends Controller
 
     public function roleStore(Request $request, $id)
     {
-        if (Gate::denies('usuarios-edit')){
+        if (Gate::denies('usuario-edit')){
             abort(403, 'Não Autorizado');
         }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
 
     public function roleDestroy($id, $role_id)
     {
-        if (Gate::denies('usuarios-edit')){
+        if (Gate::denies('usuario-edit')){
             abort(403, 'Não Autorizado');
         }
 

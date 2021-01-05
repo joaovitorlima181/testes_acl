@@ -5,7 +5,9 @@
 @endsection
 
 @section('conteudo')
+@can('usuario-edit')
 <div class="container">
+
     <div class="row">
         <form action="{{route('users.role.store', $user->id)}}" method="post">
         @csrf
@@ -38,10 +40,10 @@
                     <td>{{ $role->description }}</td>
 
                     <td>
-                        <form action="{{route('users.role.destroy',[$user->id, $role->id])}}" method="post">
-                               @method('DELETE')
-                               @csrf
-                                <button title="Deletar" class="btn btn-danger">Remover</button>
+                       <form action="{{route('users.role.destroy',[$user->id, $role->id])}}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button title="Deletar" class="btn btn-danger">Remover</button>
                         </form>
                     </td>
 
@@ -51,5 +53,10 @@
         </table>
 
     </div>
+</div>
+@endcan
+
 @endsection
+
+
 
