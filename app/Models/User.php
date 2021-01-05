@@ -53,6 +53,43 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->roleExist('Admin');
+        return $this->roleExistOnUser('Admin');
+    }
+
+    public function roleExistOnUser($role)
+    {
+        if (is_string($role)){
+            $role = Role::where('name', '=', $role)->firstOrFail();
+        }
+
+        return (boolean) $this->roles()->find($role->id);
+    }
+
+    public function addRole($role)
+    {
+        if (is_string($role)) {
+            $role = Role::where('name', '=', $role)->firstOrFail();
+        }
+
+        if ($this->roleExistOnUser($role)) {
+            return;
+        }
+
+        return $this->roles()->attach($role);
+    }
+
+    public function removeRole($role)
+    {
+        if(is_string($role)){
+            $role = Role::where('name', '=', $role)->firstOrFail();
+        }
+
+        return $this->roles()->detach();
+    }
+
+    public function userHaveRole($roles)
+    {
+        $userRoles = $this->roles;
+        return $roles->intersect($userRoles)->count();
     }
 }

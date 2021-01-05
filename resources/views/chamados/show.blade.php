@@ -21,18 +21,21 @@
             <input type="text" name="descriptionChamado" class="form-control" value="{{$chamado->description}}">
         </div>
 
-        <button class="btn btn-success mb-2">Salvar</button>
+        @can('chamados-edit')
+            <button class="btn btn-success mb-2">Salvar</button>
+        @endcan
     </form>
 
-        
+    <div>  
 
-    <div>       
+        @can('chamados-delete')
             <form action="{{route('chamados.destroy',$chamado->id)}}" method="post"> 
                 @method('DELETE')
                 @csrf
                 <button title="Deletar" class="btn red"><button class="mr-2 btn btn-danger">Deletar</button></button>
             </form>
-        
+        @endcan
+
     </div>
     
 @endsection

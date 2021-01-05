@@ -47,9 +47,7 @@
 
     </div>
     <div class="row">
-        @can('papel-create')
-        <a class="btn blue" href="{{route('roles.create')}}">Adicionar</a>
-        @endcan
+        <a class="btn btn-primary mt-3" href="{{route('roles.create')}}">Adicionar</a>
     </div>
 </div>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('role-view')){
+            abort(403, 'Não Autorizado');
+        }
+
         $roles = Role::all();
         return view('roles.index', compact('roles'));
     }
@@ -71,7 +76,7 @@ class RoleController extends Controller
 
         $role = Role::find($id);
 
-        return view('role.edit', compact('role'));
+        return view('roles.edit', compact('role'));
     }
 
     /**
@@ -114,9 +119,9 @@ class RoleController extends Controller
     public function permission($id)
     {
         $role = Role::find($id);
-        $permission = Permission::all();
+        $permissions = Permission::all();
 
-        return view('role.permission', compact('role', 'permission'));
+        return view('roles.permission', compact('role', 'permissions'));
     }
 
     public function permissionStore(Request $request, $id)

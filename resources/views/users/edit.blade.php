@@ -6,7 +6,7 @@
 
 @section('conteudo')
 
-<form action="{{route('user.update', $user->id)}}" method="POST">
+<form action="{{route('users.update', $user->id)}}" method="POST">
 
     @method('PUT')
     @csrf
@@ -22,15 +22,11 @@
 
     <button class="btn btn-success mb-2">Salvar</button>
 
-</form>
-
-<div>       
-    <form action="{{route('user.destroy',$user->id)}}" method="post"> 
+</form>      
+    <form action="{{route('users.destroy',$user->id)}}" method="post"> 
         @method('DELETE')
         @csrf
-        <button title="Deletar" class="btn red"><button class="mr-2 btn btn-danger">Deletar</button></button>
+        <button title="Deletar" class="btn btn-danger mb-2">Deletar</button>
     </form>
-
-</div>
     
 @endsection

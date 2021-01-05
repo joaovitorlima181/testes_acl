@@ -36,7 +36,7 @@ class Role extends Model
             $permission = Permission::where('name', '=', $permission)->firstOrFail();
         }
 
-        if($this->permissionExist($permission)){
+        if($this->permissionExistOnRole($permission)){
             return;
         }
 

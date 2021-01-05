@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -14,9 +16,13 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('usuario-view')){
+            abort(403, 'Não Autorizado');
+        }
+
         $users = User::all();
 
-        return view('user.index', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -60,7 +66,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('user.edit', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -89,6 +95,34 @@ class UserController extends Controller
     public function destroy($id)
     {
         return User::find($id)->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('users.index');
     }
+
+    public function role($id)
+    {
+        $user = User::find($id);
+        $roles = Role::all();
+
+        return view('users.role', compact('user', 'roles'));
+    }
+
+    public function roleStore(Request $request, $id)
+    {
+        $user = User::find($id);
+        $data = $request->all();
+        $role = Role::find($data['role_id']);
+        $user->addRole($role);
+
+        return redirect()->back();
+    }
+
+    public function roleDestroy($id, $role_id)
+    {
+        $user = User::find($id);
+        $role = Role::find($role_id);
+        $user->removeRole($role);
+
+        return redirect()->back();
+    }
+
 }

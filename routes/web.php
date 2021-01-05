@@ -3,12 +3,9 @@
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-<<<<<<< HEAD
-use App\Http\Controllers\UserController;
-=======
 use App\Http\Controllers\RoleController;
->>>>>>> bbad9cd6ee1b7dabf931d3c12203fe0a6f49e23e
-use App\Models\Chamado;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,14 +42,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('chamados', ChamadoController::class);
     Route::post('/chamados/create', [ChamadoController::class, 'store']);
 
-<<<<<<< HEAD
-    Route::resource('user', UserController::class);
-=======
-    Route::resource('user', ChamadoController::class);
+    Route::resource('users', UserController::class);
+    Route::get('users/role/{id}', [UserController::class, 'role'])->name('users.role');
+    Route::post('users/role/{role}', [UserController::class, 'roleStore'])->name('users.role.store');
+    Route::delete('users/role/{user}/{role}', [UserController::class, 'roleDestroy'])->name('users.role.destroy');
 
     Route::resource('roles', RoleController::class);
     Route::get('roles/permission/{id}', [RoleController::class, 'permission'])->name('roles.permission');
->>>>>>> bbad9cd6ee1b7dabf931d3c12203fe0a6f49e23e
+    Route::post('roles/permission/{permission}', [RoleController::class, 'permissionStore'])->name('roles.permission.store');
+    Route::delete('roles/permission/{role}/{permission}', [RoleController::class, 'permissionDestroy'])->name('roles.permission.destroy');
 });
 
 Route::get('/logout', function () {

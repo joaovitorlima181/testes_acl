@@ -6,6 +6,7 @@ use App\Models\Chamado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class ChamadoController extends Controller
 {
@@ -16,6 +17,10 @@ class ChamadoController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('chamados-view')){
+            abort(403, 'Não Autorizado');
+        }
+
         $chamados = Chamado::all();
         return view('chamados.index', compact('chamados'));
     }
@@ -27,6 +32,10 @@ class ChamadoController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('chamados-create')){
+            abort(403, 'Não Autorizado');
+        }
+
         return view('chamados.create');
     }
 
@@ -38,6 +47,10 @@ class ChamadoController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('chamados-create')){
+            abort(403, 'Não Autorizado');
+        }
+
         $userId = Auth::id();
 
         DB::beginTransaction();
@@ -61,6 +74,10 @@ class ChamadoController extends Controller
      */
     public function show(Chamado $chamado)
     {
+        if(Gate::denies('chamados-view')){
+            abort(403,"Não autorizado!");
+        }
+
         $chamado = Chamado::find($chamado->id);
 
         return view('chamados.show', compact('chamado'));
@@ -86,6 +103,10 @@ class ChamadoController extends Controller
      */
     public function update(Request $request, Chamado $chamado)
     {
+        if(Gate::denies('chamados-edit')){
+            abort(403,"Não autorizado!");
+        }
+
         $chamado = Chamado::find($chamado->id);
         $chamado->description = $request->descriptionChamado;
         $chamado->title = $request->titleChamado;
@@ -102,6 +123,10 @@ class ChamadoController extends Controller
      */
     public function destroy($id)
     {
+        if(Gate::denies('chamados-delete')){
+            abort(403,"Não autorizado!");
+        }
+
         Chamado::find($id)->delete();
         return redirect()->route('chamados.index');
     }

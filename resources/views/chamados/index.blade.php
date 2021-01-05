@@ -8,20 +8,29 @@
 
     <ul class="list-group">
 
-        <a href="{{route('chamados.create')}}" class="btn btn-dark mb-2">Abrir Chamado</a>
+       @can('chamados-create')
+            <a href="{{route('chamados.create')}}" class="btn btn-dark mb-2">Abrir Chamado</a>
+       @endcan
+
+       @can('chamados-view')
 
         @forelse ($chamados as $chamado)
             <li class="list-group-item">
                 <div>
-                    <span class="d-flex justify-content-start fs-3 align-middle" id="tituloChamado-{{ $chamado->id }}">{{ $chamado->title }}</span>
+                    {{ $chamado->title }}
                     
                     <div class="d-flex justify-content-end">
-                        <a title="Visualizar" class="btn orange" href="{{ route('chamados.show',$chamado->id) }}"><button class="mr-2 btn btn-primary">Visualizar</button></a>
-                        
+                    
                         <form action="{{route('chamados.destroy',$chamado->id)}}" method="post"> 
-                            @method('DELETE')
-                            @csrf
-                            <button title="Deletar" class="btn red"><button class="mr-2 btn btn-danger">Deletar</button></button>
+                           
+                            <a title="Visualizar" class="mr-2 btn btn-primary" href="{{ route('chamados.show',$chamado->id) }}">Visualizar</a>
+
+                            @can('chamados-delete')
+                                @method('DELETE')
+                                @csrf
+                                <button title="Deletar" class="btn red"><button class="mr-2 btn btn-danger">Deletar</button></button>
+                            @endcan                            
+
                         </form>
                     </div>
                 </div>
@@ -29,8 +38,10 @@
 
             @empty
             <h2>Nenhum Chamado.</h2>
-            
+        
         @endforelse
+        
+       @endcan
         
     </ul>
 

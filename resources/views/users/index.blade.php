@@ -24,12 +24,15 @@
                     <td>{{ $user->email }}</td>
                     <td>
 
-                        <a title="Editar" class="btn blue" href="{{route('user.edit', $user->id)}}"><button class="btn btn-dark mt-3">Editar</button></a>
+                        <form action="{{route('users.destroy', $user->id)}}" method="post">
 
-                        <form action="{{route('user.destroy', $user->id)}}" method="post">
+                            <a title="Editar" class="btn btn-primary" href="{{route('users.edit', $user->id)}}">Editar</a>
+                            <a title="Papel" class="btn btn-warning" href="{{route('users.role', $user->id)}}">Papel</a>
+
                             @method('DELETE')
                             @csrf
-                            <a title="Deletar" class="btn blue"><button class="btn btn-danger mt-3">Delete</button></a>
+                            <button title="Deletar" class="btn btn-danger">Deletar</button>
+
                         </form>
                     </td>
                 </tr>
