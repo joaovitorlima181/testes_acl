@@ -3,7 +3,11 @@
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+<<<<<<< HEAD
 use App\Http\Controllers\UserController;
+=======
+use App\Http\Controllers\RoleController;
+>>>>>>> bbad9cd6ee1b7dabf931d3c12203fe0a6f49e23e
 use App\Models\Chamado;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +45,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('chamados', ChamadoController::class);
     Route::post('/chamados/create', [ChamadoController::class, 'store']);
 
+<<<<<<< HEAD
     Route::resource('user', UserController::class);
+=======
+    Route::resource('user', ChamadoController::class);
+
+    Route::resource('roles', RoleController::class);
+    Route::get('roles/permission/{id}', [RoleController::class, 'permission'])->name('roles.permission');
+>>>>>>> bbad9cd6ee1b7dabf931d3c12203fe0a6f49e23e
 });
 
 Route::get('/logout', function () {
